@@ -1,0 +1,76 @@
+{
+  "version": "21.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "awsstack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "awsstack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "awsstack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://463181823942/us-east-1",
+      "properties": {
+        "templateFile": "awsstack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-deploy-role-463181823942-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-cfn-exec-role-463181823942-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-463181823942-us-east-1/4d229237b0f2acb28bd691d2ec189a87dc1c8f253c467b76d78f0b5aa939d9d4.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "awsstack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-lookup-role-463181823942-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "awsstack.assets"
+      ],
+      "metadata": {
+        "/awsstack/get_data_from_hubble/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "getdatafromhubbleServiceRole680C7ED2"
+          }
+        ],
+        "/awsstack/get_data_from_hubble/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "getdatafromhubbleF8F748FE"
+          }
+        ],
+        "/awsstack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/awsstack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/awsstack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "awsstack"
+    }
+  }
+}
