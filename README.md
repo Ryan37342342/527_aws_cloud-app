@@ -1,1 +1,2 @@
-# 527_aws_cloud-app
+# 527_aws_cloud-app(Group project)
+A cloud application that is deployed on aws services
