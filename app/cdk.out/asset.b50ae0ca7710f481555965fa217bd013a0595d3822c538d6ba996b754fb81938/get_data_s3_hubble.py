@@ -47,7 +47,7 @@ for url in s3_urls:
     event = {
         'fits_s3_key': fits_s3_key,
         'fits_s3_bucket': 'stpubdata',
-        's3_output_bucket': 'mast-results-bucket575'
+        's3_output_bucket': ''  # <- change this to your output bucket
     }
 
     # Invoke Lambda function

@@ -6,7 +6,7 @@ import aws_cdk as cdk
 from app.app_stack import AppStack
 
 app = cdk.App()
-AppStack(app,"awsstack",
+AppStack(app, "star-guide-stack",
          # Uncomment the next line to specialize this stack for the AWS Account
          # and Region that are implied by the current CLI configuration.
 

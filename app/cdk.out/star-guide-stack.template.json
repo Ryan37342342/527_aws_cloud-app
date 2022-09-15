@@ -31,7 +31,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/get_data_from_hubble/ServiceRole/Resource"
+    "aws:cdk:path": "star-guide-stack/get_data_from_hubble/ServiceRole/Resource"
    }
   },
   "getdatafromhubbleF8F748FE": {
@@ -39,7 +39,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
-     "S3Key": "b50ae0ca7710f481555965fa217bd013a0595d3822c538d6ba996b754fb81938.zip"
+     "S3Key": "6c65789917a081bf5c4d120c3882e8608d34d86edac1dcd55a367367db0370a2.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -54,8 +54,8 @@
     "getdatafromhubbleServiceRole680C7ED2"
    ],
    "Metadata": {
-    "aws:cdk:path": "awsstack/get_data_from_hubble/Resource",
-    "aws:asset:path": "asset.b50ae0ca7710f481555965fa217bd013a0595d3822c538d6ba996b754fb81938",
+    "aws:cdk:path": "star-guide-stack/get_data_from_hubble/Resource",
+    "aws:asset:path": "asset.6c65789917a081bf5c4d120c3882e8608d34d86edac1dcd55a367367db0370a2",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -80,7 +80,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "awsstack/output-bucket/Resource"
+    "aws:cdk:path": "star-guide-stack/output-bucket/Resource"
    }
   },
   "outputbucketPolicy1B6D6B81": {
@@ -134,7 +134,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/output-bucket/Policy/Resource"
+    "aws:cdk:path": "star-guide-stack/output-bucket/Policy/Resource"
    }
   },
   "outputbucketAutoDeleteObjectsCustomResource5121BF9D": {
@@ -156,7 +156,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "awsstack/output-bucket/AutoDeleteObjectsCustomResource/Default"
+    "aws:cdk:path": "star-guide-stack/output-bucket/AutoDeleteObjectsCustomResource/Default"
    }
   },
   "outputbucketNotifications8A87F210": {
@@ -189,13 +189,13 @@
     "Managed": true
    },
    "DependsOn": [
-    "outputbucketAllowBucketNotificationsToawsstackgetdatafromhubbleBCA5712835959F5A"
+    "outputbucketAllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F07652FF6"
    ],
    "Metadata": {
-    "aws:cdk:path": "awsstack/output-bucket/Notifications/Resource"
+    "aws:cdk:path": "star-guide-stack/output-bucket/Notifications/Resource"
    }
   },
-  "outputbucketAllowBucketNotificationsToawsstackgetdatafromhubbleBCA5712835959F5A": {
+  "outputbucketAllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F07652FF6": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -215,7 +215,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/output-bucket/AllowBucketNotificationsToawsstackgetdatafromhubbleBCA57128"
+    "aws:cdk:path": "star-guide-stack/output-bucket/AllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F"
    }
   },
   "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
@@ -240,7 +240,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+    "aws:cdk:path": "star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
    }
   },
   "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
@@ -277,7 +277,7 @@
     "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
    ],
    "Metadata": {
-    "aws:cdk:path": "awsstack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:cdk:path": "star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
     "aws:asset:path": "asset.e57c1acaa363d7d2b81736776007a7091bc73dff4aeb8135627c4511a51e7dca",
     "aws:asset:property": "Code"
    }
@@ -313,7 +313,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource"
+    "aws:cdk:path": "star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource"
    }
   },
   "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36": {
@@ -337,7 +337,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource"
+    "aws:cdk:path": "star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource"
    }
   },
   "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691": {
@@ -362,13 +362,13 @@
     "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
    ],
    "Metadata": {
-    "aws:cdk:path": "awsstack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
+    "aws:cdk:path": "star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
    }
   },
-  "resultsbucket23CE2CF5": {
+  "MASTresultsbucket57500A521AE": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "BucketName": "results",
+    "BucketName": "mast-results-bucket575",
     "PublicAccessBlockConfiguration": {
      "BlockPublicAcls": true,
      "BlockPublicPolicy": true,
@@ -385,14 +385,14 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "awsstack/results-bucket/Resource"
+    "aws:cdk:path": "star-guide-stack/MAST-results-bucket575/Resource"
    }
   },
-  "resultsbucketPolicy7A062AE2": {
+  "MASTresultsbucket575PolicyF7416DCB": {
    "Type": "AWS::S3::BucketPolicy",
    "Properties": {
     "Bucket": {
-     "Ref": "resultsbucket23CE2CF5"
+     "Ref": "MASTresultsbucket57500A521AE"
     },
     "PolicyDocument": {
      "Statement": [
@@ -414,7 +414,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "resultsbucket23CE2CF5",
+          "MASTresultsbucket57500A521AE",
           "Arn"
          ]
         },
@@ -424,7 +424,7 @@
           [
            {
             "Fn::GetAtt": [
-             "resultsbucket23CE2CF5",
+             "MASTresultsbucket57500A521AE",
              "Arn"
             ]
            },
@@ -439,10 +439,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/results-bucket/Policy/Resource"
+    "aws:cdk:path": "star-guide-stack/MAST-results-bucket575/Policy/Resource"
    }
   },
-  "resultsbucketAutoDeleteObjectsCustomResource61E15352": {
+  "MASTresultsbucket575AutoDeleteObjectsCustomResource88BBA35A": {
    "Type": "Custom::S3AutoDeleteObjects",
    "Properties": {
     "ServiceToken": {
@@ -452,16 +452,16 @@
      ]
     },
     "BucketName": {
-     "Ref": "resultsbucket23CE2CF5"
+     "Ref": "MASTresultsbucket57500A521AE"
     }
    },
    "DependsOn": [
-    "resultsbucketPolicy7A062AE2"
+    "MASTresultsbucket575PolicyF7416DCB"
    ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "awsstack/results-bucket/AutoDeleteObjectsCustomResource/Default"
+    "aws:cdk:path": "star-guide-stack/MAST-results-bucket575/AutoDeleteObjectsCustomResource/Default"
    }
   },
   "CDKMetadata": {
@@ -470,7 +470,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOSw7CMAxEz8I+NZQisaaVWEflAFVIQzFtEilOQCjK3ekH8VnNG49tzRZ2OWxW4kGZbPtswDPEkxeyZ+OoiYPQ51ZAPAYjPVrDqov5Za6cRqLRJYZCQ6ztoKZgVm4HlM95b6bEqGgEkfIEh0lGD7EMsle+FKTYgtPBmxb5/vn1KbH5yVi3Q9OxKpC3ulZkg5NLiQ//RdzZO7bKJcaf/mrNuoB8A/vVjRAzF4xHraBe9AXHcRLYIAEAAA=="
    },
    "Metadata": {
-    "aws:cdk:path": "awsstack/CDKMetadata/Default"
+    "aws:cdk:path": "star-guide-stack/CDKMetadata/Default"
    }
   }
  },

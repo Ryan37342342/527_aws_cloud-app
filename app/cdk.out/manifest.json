@@ -7,27 +7,27 @@
         "file": "tree.json"
       }
     },
-    "awsstack.assets": {
+    "star-guide-stack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "awsstack.assets.json",
+        "file": "star-guide-stack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "awsstack": {
+    "star-guide-stack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://463181823942/us-east-1",
       "properties": {
-        "templateFile": "awsstack.template.json",
+        "templateFile": "star-guide-stack.template.json",
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-deploy-role-463181823942-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-cfn-exec-role-463181823942-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-463181823942-us-east-1/4d229237b0f2acb28bd691d2ec189a87dc1c8f253c467b76d78f0b5aa939d9d4.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-463181823942-us-east-1/12e0c0191d0d9a4bc5445dbeb6281c20af55c8c41c6658fbddd39088c03c00cb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "awsstack.assets"
+          "star-guide-stack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-lookup-role-463181823942-us-east-1",
@@ -36,41 +36,119 @@
         }
       },
       "dependencies": [
-        "awsstack.assets"
+        "star-guide-stack.assets"
       ],
       "metadata": {
-        "/awsstack/get_data_from_hubble/ServiceRole/Resource": [
+        "/star-guide-stack/get_data_from_hubble/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "getdatafromhubbleServiceRole680C7ED2"
           }
         ],
-        "/awsstack/get_data_from_hubble/Resource": [
+        "/star-guide-stack/get_data_from_hubble/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "getdatafromhubbleF8F748FE"
           }
         ],
-        "/awsstack/CDKMetadata/Default": [
+        "/star-guide-stack/output-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outputbucket0B6601C4"
+          }
+        ],
+        "/star-guide-stack/output-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outputbucketPolicy1B6D6B81"
+          }
+        ],
+        "/star-guide-stack/output-bucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outputbucketAutoDeleteObjectsCustomResource5121BF9D"
+          }
+        ],
+        "/star-guide-stack/output-bucket/Notifications/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outputbucketNotifications8A87F210"
+          }
+        ],
+        "/star-guide-stack/output-bucket/AllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outputbucketAllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F07652FF6"
+          }
+        ],
+        "/star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+          }
+        ],
+        "/star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36"
+          }
+        ],
+        "/star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691"
+          }
+        ],
+        "/star-guide-stack/MAST-results-bucket575/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MASTresultsbucket57500A521AE"
+          }
+        ],
+        "/star-guide-stack/MAST-results-bucket575/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MASTresultsbucket575PolicyF7416DCB"
+          }
+        ],
+        "/star-guide-stack/MAST-results-bucket575/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MASTresultsbucket575AutoDeleteObjectsCustomResource88BBA35A"
+          }
+        ],
+        "/star-guide-stack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/awsstack/BootstrapVersion": [
+        "/star-guide-stack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/awsstack/CheckBootstrapVersion": [
+        "/star-guide-stack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "awsstack"
+      "displayName": "star-guide-stack"
     }
   }
 }
