@@ -9,13 +9,70 @@
         "path": "Tree",
         "constructInfo": {
           "fqn": "constructs.Construct",
-          "version": "10.1.97"
+          "version": "10.1.106"
         }
       },
       "star-guide-stack": {
         "id": "star-guide-stack",
         "path": "star-guide-stack",
         "children": {
+          "astro_layer": {
+            "id": "astro_layer",
+            "path": "star-guide-stack/astro_layer",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "star-guide-stack/astro_layer/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "star-guide-stack/astro_layer/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.42.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "star-guide-stack/astro_layer/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.42.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.42.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "star-guide-stack/astro_layer/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
+                  "aws:cdk:cloudformation:props": {
+                    "content": {
+                      "s3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
+                      "s3Key": "3eec0a3a44e277f846e76074471a8eb6bd2a4a3dc35528a50306214e53499188.zip"
+                    },
+                    "compatibleRuntimes": [
+                      "python3.9"
+                    ],
+                    "description": "packages for mast lambda"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnLayerVersion",
+                  "version": "2.42.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.LayerVersion",
+              "version": "2.42.0"
+            }
+          },
           "get_data_from_hubble": {
             "id": "get_data_from_hubble",
             "path": "star-guide-stack/get_data_from_hubble",
@@ -60,13 +117,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Code": {
@@ -78,7 +135,7 @@
                     "path": "star-guide-stack/get_data_from_hubble/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   },
                   "AssetBucket": {
@@ -86,13 +143,13 @@
                     "path": "star-guide-stack/get_data_from_hubble/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Resource": {
@@ -103,7 +160,7 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
-                      "s3Key": "6c65789917a081bf5c4d120c3882e8608d34d86edac1dcd55a367367db0370a2.zip"
+                      "s3Key": "d5668f8173451ac8b8b94208a96651a6a6b8906ab04a67f0570c76e97340c70e.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -112,18 +169,23 @@
                       ]
                     },
                     "handler": "get_data_s3_hubble.get_data",
+                    "layers": [
+                      {
+                        "Ref": "astrolayerDDB3B805"
+                      }
+                    ],
                     "runtime": "python3.9"
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.41.0"
+              "version": "2.42.0"
             }
           },
           "output-bucket": {
@@ -153,7 +215,7 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Policy": {
@@ -216,13 +278,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "AutoDeleteObjectsCustomResource": {
@@ -234,13 +296,13 @@
                     "path": "star-guide-stack/output-bucket/AutoDeleteObjectsCustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CustomResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Notifications": {
@@ -252,13 +314,13 @@
                     "path": "star-guide-stack/output-bucket/Notifications/Resource",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "constructs.Construct",
-                  "version": "10.1.97"
+                  "version": "10.1.106"
                 }
               },
               "AllowBucketNotificationsTostarguidestackgetdatafromhubble77135A3F": {
@@ -286,13 +348,13 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_s3.Bucket",
-              "version": "2.41.0"
+              "version": "2.42.0"
             }
           },
           "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
@@ -304,7 +366,7 @@
                 "path": "star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.AssetStaging",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Role": {
@@ -312,7 +374,7 @@
                 "path": "star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Handler": {
@@ -320,13 +382,13 @@
                 "path": "star-guide-stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.CustomResourceProvider",
-              "version": "2.41.0"
+              "version": "2.42.0"
             }
           },
           "BucketNotificationsHandler050a0587b7544547bf325f094a3db834": {
@@ -373,7 +435,7 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   },
                   "DefaultPolicy": {
@@ -406,19 +468,19 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.41.0"
+                          "version": "2.42.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Resource": {
@@ -426,13 +488,13 @@
                 "path": "star-guide-stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "constructs.Construct",
-              "version": "10.1.97"
+              "version": "10.1.106"
             }
           },
           "MAST-results-bucket575": {
@@ -462,7 +524,7 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "Policy": {
@@ -525,13 +587,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               },
               "AutoDeleteObjectsCustomResource": {
@@ -543,19 +605,19 @@
                     "path": "star-guide-stack/MAST-results-bucket575/AutoDeleteObjectsCustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
-                      "version": "2.41.0"
+                      "version": "2.42.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CustomResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_s3.Bucket",
-              "version": "2.41.0"
+              "version": "2.42.0"
             }
           },
           "CDKMetadata": {
@@ -567,25 +629,25 @@
                 "path": "star-guide-stack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.41.0"
+                  "version": "2.42.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "constructs.Construct",
-              "version": "10.1.97"
+              "version": "10.1.106"
             }
           }
         },
         "constructInfo": {
           "fqn": "aws-cdk-lib.Stack",
-          "version": "2.41.0"
+          "version": "2.42.0"
         }
       }
     },
     "constructInfo": {
       "fqn": "aws-cdk-lib.App",
-      "version": "2.41.0"
+      "version": "2.42.0"
     }
   }
 }

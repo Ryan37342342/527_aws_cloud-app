@@ -1,5 +1,26 @@
 {
  "Resources": {
+  "astrolayerDDB3B805": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "Content": {
+     "S3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
+     "S3Key": "3eec0a3a44e277f846e76074471a8eb6bd2a4a3dc35528a50306214e53499188.zip"
+    },
+    "CompatibleRuntimes": [
+     "python3.9"
+    ],
+    "Description": "packages for mast lambda"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "star-guide-stack/astro_layer/Resource",
+    "aws:asset:path": "asset.3eec0a3a44e277f846e76074471a8eb6bd2a4a3dc35528a50306214e53499188",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
   "getdatafromhubbleServiceRole680C7ED2": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -39,7 +60,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
-     "S3Key": "6c65789917a081bf5c4d120c3882e8608d34d86edac1dcd55a367367db0370a2.zip"
+     "S3Key": "d5668f8173451ac8b8b94208a96651a6a6b8906ab04a67f0570c76e97340c70e.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -48,6 +69,11 @@
      ]
     },
     "Handler": "get_data_s3_hubble.get_data",
+    "Layers": [
+     {
+      "Ref": "astrolayerDDB3B805"
+     }
+    ],
     "Runtime": "python3.9"
    },
    "DependsOn": [
@@ -55,7 +81,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "star-guide-stack/get_data_from_hubble/Resource",
-    "aws:asset:path": "asset.6c65789917a081bf5c4d120c3882e8608d34d86edac1dcd55a367367db0370a2",
+    "aws:asset:path": "asset.d5668f8173451ac8b8b94208a96651a6a6b8906ab04a67f0570c76e97340c70e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -467,7 +493,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOSw7CMAxEz8I+NZQisaaVWEflAFVIQzFtEilOQCjK3ekH8VnNG49tzRZ2OWxW4kGZbPtswDPEkxeyZ+OoiYPQ51ZAPAYjPVrDqov5Za6cRqLRJYZCQ6ztoKZgVm4HlM95b6bEqGgEkfIEh0lGD7EMsle+FKTYgtPBmxb5/vn1KbH5yVi3Q9OxKpC3ulZkg5NLiQ//RdzZO7bKJcaf/mrNuoB8A/vVjRAzF4xHraBe9AXHcRLYIAEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VPvQrCMBB+Fvf01Co4q+DkUCq4SkxPPdskkEuUEvrutqb4M33/HJfDMofZRD45U1WdNXSGePBS1aK3TrGR+lxJiHvZojuiY7JGbC/mT++CUX4MfnmBThMPlU7w4iSZ0TOsB+g1xE1QNfqNZBSJDqORJShsQ6r92kl3gqSGWNoGh+iN3+bY6cT7UP/LlcxVbAN7q0tkG5xKsw//iwpnH1Sh60TR+ps10wXMZ7Ca3Jkoc8F40ghlwhfwYp6IPQEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "star-guide-stack/CDKMetadata/Default"

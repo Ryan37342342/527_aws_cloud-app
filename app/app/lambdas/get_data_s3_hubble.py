@@ -1,4 +1,7 @@
 import json
+import sys
+
+sys.path.append('ROOT_ZIP_DIRECTORY')
 from astroquery.mast import Observations
 import boto3
 import os

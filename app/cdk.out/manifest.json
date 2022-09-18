@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-deploy-role-463181823942-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::463181823942:role/cdk-hnb659fds-cfn-exec-role-463181823942-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-463181823942-us-east-1/12e0c0191d0d9a4bc5445dbeb6281c20af55c8c41c6658fbddd39088c03c00cb.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-463181823942-us-east-1/3cd7b9fc20a7073ff5f3851ad7b35097842571d52a67e01c68cc7b6452719801.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,6 +39,12 @@
         "star-guide-stack.assets"
       ],
       "metadata": {
+        "/star-guide-stack/astro_layer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "astrolayerDDB3B805"
+          }
+        ],
         "/star-guide-stack/get_data_from_hubble/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
