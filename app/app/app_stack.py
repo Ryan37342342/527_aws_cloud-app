@@ -15,9 +15,9 @@ class AppStack(Stack):
 
         ##################### stack is defined within here###################################################
 
-        # create a layer for packages (installed at app/app/layers)
+        # create a python for packages (installed at app/app/layers)
         layer = lambda_.LayerVersion(self, 'astro_layer',
-                                     code=lambda_.Code.from_asset("app/layer/layer_astro"),
+                                     code=lambda_.Code.from_asset("app/layers"),
                                      description='packages for mast lambda',
                                      compatible_runtimes=[lambda_.Runtime.PYTHON_3_9],
                                      removal_policy=cdk.RemovalPolicy.DESTROY
