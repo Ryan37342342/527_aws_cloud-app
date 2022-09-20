@@ -5,7 +5,7 @@
    "Properties": {
     "Content": {
      "S3Bucket": "cdk-hnb659fds-assets-463181823942-us-east-1",
-     "S3Key": "6751292732abdbdf26f471651ebdfabf91a4bf72cad71c57c5143f6596f4ab27.zip"
+     "S3Key": "03018c9e0c33714c544fe8d93c00ec9ab95d8103e6c7deda5ff4197e480645c8.zip"
     },
     "CompatibleRuntimes": [
      "python3.9"
@@ -16,7 +16,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "star-guide-stack/astro_layer/Resource",
-    "aws:asset:path": "asset.6751292732abdbdf26f471651ebdfabf91a4bf72cad71c57c5143f6596f4ab27",
+    "aws:asset:path": "asset.03018c9e0c33714c544fe8d93c00ec9ab95d8103e6c7deda5ff4197e480645c8",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Content"
    }
