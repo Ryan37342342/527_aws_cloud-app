@@ -14,10 +14,10 @@ class AppStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         ##################### stack is defined within here###################################################
-        self.tempFileName()
+        self.TempFileName()
         self.CreateUserPool()
     
-    def tempFileName(self)
+    def TempFileName(self)
         # create a python for packages (installed at app/app/layers)
         layer = lambda_.LayerVersion(self, 'astro_layer',
                                      code=lambda_.Code.from_asset("app/layers"),
