@@ -14,7 +14,10 @@ class AppStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         ##################### stack is defined within here###################################################
-
+        self.tempFileName()
+        self.CreateUserPool()
+    
+    def tempFileName(self)
         # create a python for packages (installed at app/app/layers)
         layer = lambda_.LayerVersion(self, 'astro_layer',
                                      code=lambda_.Code.from_asset("app/layers"),
@@ -47,3 +50,82 @@ class AppStack(Stack):
                                    auto_delete_objects=True,
                                    block_public_access=s3.BlockPublicAccess.BLOCK_ALL
                                    )
+    def CreateUserPool(self):
+        # specify the configuration of the user pool
+        cognito_userPool = cognito.UserPool(
+            self, "StarGuide-userPool",
+            user_pool_name="starguide-userPool",
+            removal_policy=cdk.RemovalPolicy.DESTROY,
+            self_sign_up_enabled=True,
+            user_verification=cognito.UserVerificationConfig(
+                email_subject="Verify your StarGuide account!",
+                email_body="Thanks for signing up to StarGuide! \n click {##Verify Email##} to verify your email.",
+                email_style=cognito.VerificationEmailStyle.LINK
+            ),
+            sign_in_aliases=cognito.SignInAliases(
+                username=True,
+                email=True
+            ),
+            auto_verify=cognito.AutoVerifiedAttrs(
+                email=True
+            ),
+            sign_in_case_sensitive=False,
+            standard_attributes=cognito.StandardAttributes(
+                fullname=cognito.StandardAttribute(
+                    required=False,
+                    mutable=True
+                ),
+                address=cognito.StandardAttribute(
+                    required=True,
+                    mutable=True
+                )
+            ),
+            mfa=cognito.Mfa.REQUIRED,
+            mfa_second_factor=cognito.MfaSecondFactor(
+                sms=False,
+                otp=True
+            ),
+            password_policy=cognito.PasswordPolicy(
+                min_length=8,
+                require_lowercase=True,
+                require_uppercase=True,
+                require_digits=True,
+                require_symbols=True,
+                temp_password_validity=Duration.days(1)
+            ),
+            account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
+        )
+        # app clients https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html
+        app_client = cognito_userPool.add_client(
+            "StarGuide-appClient",
+            auth_flows=cognito.AuthFlow(
+                user_password=True,
+                user_srp=True
+            ),
+            supported_identity_providers=[
+                cognito.UserPoolClientIdentityProvider.COGNITO],
+            read_attributes=cognito.ClientAttributes().with_standard_attributes(
+                given_name=True,
+                family_name=True,
+                email=True,
+                email_verified=True,
+                address=True,
+                birthdate=True,
+                gender=True,
+                locale=True,
+                middle_name=True,
+                fullname=True,
+                nickname=True,
+                profile_picture=True,
+                preferred_username=True,
+                profile_page=True,
+                timezone=True,
+                last_update_time=True,
+                website=True
+            ),
+        )
+
+        domain = cognito_userPool.add_domain("StarGuide-userPoolDomain",
+                                             cognito_domain=cognito.CognitoDomainOptions(
+                                                 domain_prefix="star-guide"
+                                             ))
