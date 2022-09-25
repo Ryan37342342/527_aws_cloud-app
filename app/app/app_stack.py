@@ -2,7 +2,8 @@ from aws_cdk import (
     aws_lambda as lambda_,
     Stack,
     aws_s3 as s3,
-    aws_cognito as cognito
+    aws_cognito as cognito,
+    Duration
 )
 import aws_cdk as cdk
 from constructs import Construct
@@ -15,10 +16,10 @@ class AppStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         ##################### stack is defined within here###################################################
-        self.TempFileName()
+        self.TempFunctionName()
         self.CreateUserPool()
 
-    def TempFileName(self):
+    def TempFunctionName(self):
         # bucket to store uploaded photos (lambda triggers on upload to this bucket)
         bucket_upload = s3.Bucket(self, "output-bucket",
                                   bucket_name="upload-picture-here",
