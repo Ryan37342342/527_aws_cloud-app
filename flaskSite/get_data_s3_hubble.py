@@ -27,17 +27,19 @@ def image_coordinates(image_path):
     else:
         print('The Image has no EXIF information')
 
-    return ({"imageTakenTime": img.datetime_original, "geolocation_lat": coords[0], "geolocation_lng": coords[1]})
+    return (coords)
 
 
-def get_data(imagepath):
+def get_data():
     # send image to s3 bucket
-    subprocess.run("aws s3 cp " + imagepath + " s3://upload-picture-here")
+    # subprocess.run("aws s3 cp " + imagepath + " s3://upload-picture-here")
     # read image
-    data = image_coordinates(imagepath)
+    #data = image_coordinates(imagepath)
+    data = [-70.50919, 107.18696]
     if data != "":
+        print(data)
         lat = data[1]
-        lon = data[2]
+        lon = data[0]
     else:
         print("no gps data found")
     # extract data from image
@@ -48,3 +50,5 @@ def get_data(imagepath):
     manifest = Zcut.download_cutouts(coordinates=cutout_coord, size=[200, 300], units="px")
     # display fits image
 
+if __name__ == "__main__":
+    get_data()

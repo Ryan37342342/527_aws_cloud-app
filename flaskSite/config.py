@@ -3,23 +3,9 @@ import os
 # ~~ Upload file content ~~
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-
-
-AWS_DEFAULT_REGION = os.environ["AWS_REGION"]
-JWT_TOKEN_LOCATION = ["cookies"]
-JWT_COOKIE_SECURE = True
-
-# ok to set this off, as Cognito OAuth state provides protection
-JWT_COOKIE_CSRF_PROTECT = False
-JWT_ALGORITHM = "RS256"
-JWT_IDENTITY_CLAIM = "sub"
-
-SECRET_KEY = os.environ["SECRET_KEY"]
-JWT_PRIVATE_KEY = os.environ["JWT_PRIVATE_KEY"]
-#  We're using Cognito to generate keys, so this is never used
-JWT_SECRET_KEY = os.environ["JWT_SECRET_KEY"]
-AWS_COGNITO_DOMAIN = os.environ["AWS_COGNITO_DOMAIN"]
-AWS_COGNITO_USER_POOL_ID = os.environ["AWS_COGNITO_USER_POOL_ID"]
-AWS_COGNITO_USER_POOL_CLIENT_ID = os.environ["AWS_COGNITO_USER_POOL_CLIENT_ID"]
-AWS_COGNITO_USER_POOL_CLIENT_SECRET = os.environ["AWS_COGNITO_USER_POOL_CLIENT_SECRET"]
-AWS_COGNITO_REDIRECT_URL = os.environ["SITE_URL"] + "/loggedin"
+AWS_DEFAULT_REGION = 'eu-west-1'
+AWS_COGNITO_DOMAIN = 'https://star-guide.auth.us-east-1.amazoncognito.com'
+AWS_COGNITO_USER_POOL_ID = 'us-east-1_ehyW8ec2Y'
+AWS_COGNITO_USER_POOL_CLIENT_ID = '3mdr87hipfio4lohsb8hf1sk8f'
+AWS_COGNITO_USER_POOL_CLIENT_SECRET = '16vdl4683qpfk41t9a7rnqq51a4bd1dvtv1t0uoi0kq8fno0lqsg'
+AWS_COGNITO_REDIRECT_URL = 'https://localhost:5000/aws_cognito_redirect'
