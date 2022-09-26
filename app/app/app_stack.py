@@ -67,7 +67,7 @@ class AppStack(Stack):
                                   )
 
         # bucket where the results are stored/returned
-        bucket_results = s3.Bucket(self, "MAST-results-bucket57587787687",
+        bucket_results = s3.Bucket(self, "MAST-results-bucket57",
                                    bucket_name="mast-results-bucket575",
                                    removal_policy=cdk.RemovalPolicy.DESTROY,
                                    auto_delete_objects=True,
