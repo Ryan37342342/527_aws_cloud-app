@@ -34,7 +34,7 @@
             <i class="fa fa-remove"></i>
         </a>
         <div class="w3-bar-block w3-center">
-            <a href="{{url_for('signInPage')}}" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Sign in</a>
+            <a href="{{url_for('signUserIn')}}" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Sign in</a>
             <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black">About</a>
         </div>
     </nav>
@@ -51,7 +51,14 @@
                 <h1><b>Star Guide</b></h1>
                 <p><b>Your guide among the starts</b></p>
                 <p class="w3-padding-16">
-                    <button class="w3-button w3-black" onclick="tryNowButton()">Try it now!</button>
+                    <!-- button for uploading user images -->
+                <form action="{{url_for('uploadUserImage')}}" method="post" enctype=multipart/form-data>
+                    <button type="button" class="w3-button w3-black"
+                        onclick="document.getElementById('uploadUserImage').click()">Try
+                        it now!</button>
+                    <input type="file" style="display:none" id="uploadUserImage" name="uploadUserImage"
+                        onchange="this.form.submit()">
+                </form>
                 </p>
             </header>
         </div>

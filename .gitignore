@@ -1,1 +1,4 @@
 /app/cdk.out
+/app/__pycache__
+/flaskSite/venv
+/flaskSite/__pycache__
