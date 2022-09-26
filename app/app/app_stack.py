@@ -1,12 +1,14 @@
 from aws_cdk import (
     aws_ec2 as ec2,
     Stack,
+    aws_autoscaling as autoscaling,
+    aws_elasticloadbalancingv2 as elbv2,
     aws_s3 as s3,
     aws_cognito as cognito
+
 )
 import aws_cdk as cdk
 from constructs import Construct
-from aws_cdk import aws_s3_notifications as s3_notifications
 
 
 class AppStack(Stack):
@@ -19,11 +21,37 @@ class AppStack(Stack):
         self.CreateUserPool()
         self.createEC2()
 
-
     def createEC2(self):
-        linux = ec2.MachineImage.generic_linux({
-            "us-east-1": "ami-08fa7fd7b65f37ecb",
-        })
+        vpc = ec2.Vpc(self, "Vpc",
+                      cidr="10.0.0.0/16"
+                      )
+        security_group = ec2.SecurityGroup.from_security_group_id(self, "SG", "sg-066cfd8df5995eb98",
+                                                                  mutable=False
+                                                                  )
+        # create autoscaling group
+        astro_auto_scaler = autoscaling.AutoScalingGroup(self, "Astro-auto-scaler",
+                                                         instance_type=ec2.InstaceType("t2.micro"),
+                                                         machine_image=ec2.MachineImage.generic_linux(
+                                                             {"us-east-1": "ami-08fa7fd7b65f37ecb"}),
+                                                         security_group=security_group
+                                                         )
+        # create application load balancer
+        lb = elbv2.ApplicationLoadBalancer(self, "LB",
+                                           vpc=vpc,
+                                           internet_facing=True
+                                           )
+        # Add a listener
+        listener = lb.add_listener("Listener",
+                                   port=80,
+                                   open=True
+                                   )
+
+        # Create an AutoScaling group and add it as a load balancing
+        # target to the listener.
+        listener.add_targets("ApplicationFleet",
+                             port=8080,
+                             targets=[astro_auto_scaler]
+                             )
 
     def TempFileName(self):
         # bucket to store uploaded photos (lambda triggers on upload to this bucket)
