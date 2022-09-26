@@ -145,7 +145,7 @@ class AppStack(Stack):
                 timezone=True,
                 last_update_time=True,
                 website=True
-            ),
+            ),generate_secret = True
         )
         app_client.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
 
