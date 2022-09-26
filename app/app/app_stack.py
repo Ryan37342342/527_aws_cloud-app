@@ -22,15 +22,13 @@ class AppStack(Stack):
         self.createEC2()
 
     def createEC2(self):
-        vpc = ec2.Vpc(self, "Vpc",
-                      cidr="10.0.0.0/16"
-                      )
-        vpc.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
+        vpc = ec2.Vpc.from_lookup(self, "DefaultVPC", is_default=True)
+
         security_group = ec2.SecurityGroup.from_security_group_id(self, "SG", "sg-066cfd8df5995eb98",
                                                                   mutable=False,
                                                                   )
 
-            # create autoscaling group
+        # create autoscaling group
         astro_auto_scaler = autoscaling.AutoScalingGroup(self, "Astro-auto-scaler",
                                                          instance_type=ec2.InstanceType("t2.micro"),
                                                          machine_image=ec2.MachineImage.generic_linux(
@@ -58,6 +56,7 @@ class AppStack(Stack):
                              targets=[astro_auto_scaler]
                              )
         listener.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
+
     def TempFileName(self):
         # bucket to store uploaded photos (lambda triggers on upload to this bucket)
         bucket_upload = s3.Bucket(self, "output-bucket",
@@ -77,7 +76,7 @@ class AppStack(Stack):
 
     def CreateUserPool(self):
         # specify the configuration of the user pool
-        cognito_userPool = cognito.UserPool(
+        cognito_user_pool = cognito.UserPool(
             self, "StarGuide-userPool",
             user_pool_name="starguide-userPool",
             removal_policy=cdk.RemovalPolicy.DESTROY,
@@ -121,14 +120,13 @@ class AppStack(Stack):
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
         )
         # app clients https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html
-        app_client = cognito_userPool.add_client(
+        app_client = cognito_user_pool.add_client(
             "StarGuide-appClient",
             auth_flows=cognito.AuthFlow(
                 user_password=True,
                 user_srp=True
             ),
-            supported_identity_providers=[
-                cognito.UserPoolClientIdentityProvider.COGNITO],
+            supported_identity_providers=[cognito.UserPoolClientIdentityProvider.COGNITO],
             read_attributes=cognito.ClientAttributes().with_standard_attributes(
                 given_name=True,
                 family_name=True,
@@ -151,7 +149,7 @@ class AppStack(Stack):
         )
         app_client.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
 
-        domain = cognito_userPool.add_domain("StarGuide-userPoolDomain",
+        domain = cognito_user_pool.add_domain("StarGuide-userPoolDomain",
                                              cognito_domain=cognito.CognitoDomainOptions(
                                                  domain_prefix="star-guide"
                                              ))
