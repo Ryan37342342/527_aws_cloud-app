@@ -1,5 +1,5 @@
 from aws_cdk import (
-    aws_lambda as lambda_,
+    aws_ec2 as ec2,
     Stack,
     aws_s3 as s3,
     aws_cognito as cognito
@@ -17,6 +17,13 @@ class AppStack(Stack):
         ##################### stack is defined within here###################################################
         self.TempFileName()
         self.CreateUserPool()
+        self.createEC2()
+
+
+    def createEC2(self):
+        linux = ec2.MachineImage.generic_linux({
+            "us-east-1": "ami-08fa7fd7b65f37ecb",
+        })
 
     def TempFileName(self):
         # bucket to store uploaded photos (lambda triggers on upload to this bucket)
@@ -76,7 +83,7 @@ class AppStack(Stack):
                 require_uppercase=True,
                 require_digits=True,
                 require_symbols=True,
-                temp_password_validity=Duration.days(1)
+                temp_password_validity=cdk.Duration.days(1)
             ),
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
         )
