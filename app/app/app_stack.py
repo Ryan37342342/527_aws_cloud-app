@@ -25,25 +25,30 @@ class AppStack(Stack):
         vpc = ec2.Vpc(self, "Vpc",
                       cidr="10.0.0.0/16"
                       )
+        vpc.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
         security_group = ec2.SecurityGroup.from_security_group_id(self, "SG", "sg-066cfd8df5995eb98",
-                                                                  mutable=False
+                                                                  mutable=False,
                                                                   )
-        # create autoscaling group
+
+            # create autoscaling group
         astro_auto_scaler = autoscaling.AutoScalingGroup(self, "Astro-auto-scaler",
-                                                         instance_type=ec2.InstaceType("t2.micro"),
+                                                         instance_type=ec2.InstanceType("t2.micro"),
                                                          machine_image=ec2.MachineImage.generic_linux(
                                                              {"us-east-1": "ami-08fa7fd7b65f37ecb"}),
-                                                         security_group=security_group
+                                                         security_group=security_group,
+                                                         vpc=vpc,
                                                          )
+        astro_auto_scaler.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
         # create application load balancer
         lb = elbv2.ApplicationLoadBalancer(self, "LB",
                                            vpc=vpc,
                                            internet_facing=True
                                            )
+        lb.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
         # Add a listener
         listener = lb.add_listener("Listener",
                                    port=80,
-                                   open=True
+                                   open=True,
                                    )
 
         # Create an AutoScaling group and add it as a load balancing
@@ -52,7 +57,7 @@ class AppStack(Stack):
                              port=8080,
                              targets=[astro_auto_scaler]
                              )
-
+        listener.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
     def TempFileName(self):
         # bucket to store uploaded photos (lambda triggers on upload to this bucket)
         bucket_upload = s3.Bucket(self, "output-bucket",
@@ -63,7 +68,7 @@ class AppStack(Stack):
                                   )
 
         # bucket where the results are stored/returned
-        bucket_results = s3.Bucket(self, "MAST-results-bucket575",
+        bucket_results = s3.Bucket(self, "MAST-results-bucket57587787687",
                                    bucket_name="mast-results-bucket575",
                                    removal_policy=cdk.RemovalPolicy.DESTROY,
                                    auto_delete_objects=True,
@@ -144,8 +149,10 @@ class AppStack(Stack):
                 website=True
             ),
         )
+        app_client.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
 
         domain = cognito_userPool.add_domain("StarGuide-userPoolDomain",
                                              cognito_domain=cognito.CognitoDomainOptions(
                                                  domain_prefix="star-guide"
                                              ))
+        domain.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
