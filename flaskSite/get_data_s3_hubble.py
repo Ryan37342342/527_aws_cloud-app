@@ -1,8 +1,9 @@
 import subprocess
-from astroquery.mast import Zcut
+from astroquery.mast import Zcut, Tesscut
 from astroquery.mast import Observations
 from astropy.coordinates import SkyCoord
 from exif import Image
+from astroquery.vo_conesearch import ConeSearch, conesearch
 
 
 def decimal_coords(coords, ref):
@@ -30,12 +31,12 @@ def image_coordinates(image_path):
     return (coords)
 
 
-def get_data():
+def get_data(imagepath):
     # send image to s3 bucket
-    # subprocess.run("aws s3 cp " + imagepath + " s3://upload-picture-here")
+    subprocess.run("aws s3 cp " + imagepath + " s3://upload-picture-here")
     # read image
-    #data = image_coordinates(imagepath)
-    data = [-70.50919, 107.18696]
+    data = image_coordinates(imagepath)
+
     if data != "":
         print(data)
         lat = data[1]
@@ -47,8 +48,21 @@ def get_data():
     Observations.enable_cloud_dataset()
     cutout_coord = SkyCoord(lat, lon, unit="deg")
     # get fits image
-    manifest = Zcut.download_cutouts(coordinates=cutout_coord, size=[200, 300], units="px")
-    # display fits image
+    image_count = Observations.query_criteria_count(dataproduct_type=["image"], coordinates=cutout_coord)
+    if image_count != 0:
+        table_images = Observations.query_criteria(dataproduct_type=["image"], coordinates=cutout_coord,  calib_level=["2","3"])
+        product_list = Observations.get_product_list(table_images)
+        products = Observations.filter_products(product_list,
+                                                productType=["PREVIEW"],
+                                                obs_collection=["HLA","JWST","GALEX"]
+                                                )
+
+        manifest = Observations.download_products(products[:10],cloud_only=True)
+        #print(products)
+
+    else:
+        print("no images found at this location")
+
 
 if __name__ == "__main__":
     get_data()
