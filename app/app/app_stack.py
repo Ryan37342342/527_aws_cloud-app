@@ -119,6 +119,7 @@ class AppStack(Stack):
             ),
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
         )
+        cognito_user_pool.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
         # app clients https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html
         app_client = cognito_user_pool.add_client(
             "StarGuide-appClient",
