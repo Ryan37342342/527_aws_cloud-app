@@ -58,6 +58,7 @@ def get_data(imagepath):
                                                 )
 
         manifest = Observations.download_products(products[:10],cloud_only=True)
+        return(manifest)
         #print(products)
 
     else:
