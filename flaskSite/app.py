@@ -1,8 +1,10 @@
 import os
-from flask import Flask, jsonify, render_template, url_for, redirect, make_response, request
+from flask import Flask, jsonify, render_template, url_for, redirect, make_response, send_from_directory, request
 from flask_awscognito import AWSCognitoAuthentication
 from werkzeug.utils import secure_filename
 from get_data_s3_hubble import get_data
+from flask_cors import CORS
+from jwt.algorithms import RSAAlgorithm
 import config
 from flask_jwt_extended import (
     JWTManager,
@@ -31,14 +33,12 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
 
-@app.route('/uploadUserImage', methods=['POST'])
+@app.route('/uploadUserImage', methods=['POST', 'GET'])
 def uploadUserImage():
     # check if user is signed in
     verify_jwt_in_request(optional=True)
     if not get_jwt_identity(): 
-        print("fails: go to "+ aws_auth.get_sign_in_url())
         return redirect(aws_auth.get_sign_in_url())
-    print("passes")
     # otherwise continue
     if request.method == 'POST':
         if 'uploadUserImage' not in request.files: 
@@ -49,22 +49,31 @@ def uploadUserImage():
         if userImage.filename == '': 
             return redirect(request.url)
         if userImage and allowed_file(userImage.filename):
-            filename = secure_filename(userImage.filename)
-            userImagePath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            userUploadfilename = secure_filename(userImage.filename)
+            userImagePath = os.path.join(app.config['UPLOAD_FOLDER'], userUploadfilename)
             userImage.save(userImagePath)
-            get_data(userImagePath)
-            return redirect(url_for('userIndex', name=filename))
+            #get_data(userImagePath)
+            return redirect(url_for('userIndex', filename=userUploadfilename))
     return render_template("userIndex.html")
 
+
+@app.route('/uploads/<filename>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+
+@app.route('/userIndex/<filename>')
+def userIndex(filename):
+    print(filename)
+    if filename == "e": 
+        return render_template("userIndexEMPTY.html")
+    else :
+        return render_template("userIndex.html", userUploadedImage = filename)
+
 # ~~ Cognito authentication content ~~ WIP
+app.config.from_object(config)
+app.config["JWT_PUBLIC_KEY"] = RSAAlgorithm.from_jwk(config.get_cognito_public_keys())
 
-app.config['AWS_DEFAULT_REGION'] = config.AWS_DEFAULT_REGION
-app.config['AWS_COGNITO_DOMAIN'] = config.AWS_COGNITO_DOMAIN
-app.config['AWS_COGNITO_USER_POOL_ID'] = config.AWS_COGNITO_USER_POOL_ID
-app.config['AWS_COGNITO_USER_POOL_CLIENT_ID'] = config.AWS_COGNITO_USER_POOL_CLIENT_ID
-app.config['AWS_COGNITO_USER_POOL_CLIENT_SECRET'] = config.AWS_COGNITO_USER_POOL_CLIENT_SECRET
-app.config['AWS_COGNITO_REDIRECT_URL'] = config.AWS_COGNITO_REDIRECT_URL
-
+CORS(app)
 aws_auth = AWSCognitoAuthentication(app)
 jwt = JWTManager(app)
 
@@ -72,18 +81,20 @@ jwt = JWTManager(app)
 def signInPage():
     return redirect(aws_auth.get_sign_in_url())
 
-@app.route('/aws_cognito_redirect')
+@app.route('/aws_cognito_redirect', methods=['GET'])
 def aws_cognito_redirect():
     access_token = aws_auth.get_access_token(request.args)
     resp = make_response(redirect(url_for("protected")))
     set_access_cookies(resp, access_token, max_age=30 * 60)
+    print("Cookies set!")
     return resp
 
 
-@app.route("/secret")
+@app.route("/userIndex")
 def protected():
-    verify_jwt_in_request(optional=True)
+    verify_jwt_in_request()
     if get_jwt_identity():
-        return render_template("userIndex.html")
+        return redirect(url_for("userIndex", filename="e"))
     else:
+        print("not signed in")
         return redirect(aws_auth.get_sign_in_url())
